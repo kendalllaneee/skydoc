@@ -32,9 +32,8 @@ def _stardoc_impl(ctx):
     ])
     args = ctx.actions.args()
     args.add("--input=" + str(ctx.file.input.owner))
-    args.add("--output=" + ctx.outputs.out.path)
     args.add("--workspace_name=" + ctx.workspace_name)
-    args.add("--output_format=" + ctx.attr.format)
+    args.add("--output_format=proto")
     args.add_all(
         ctx.attr.symbol_names,
         format_each = "--symbols=%s",
@@ -57,16 +56,44 @@ def _stardoc_impl(ctx):
     )
     args.add_all(ctx.attr.semantic_flags)
     stardoc = ctx.executable.stardoc
-    ctx.actions.run(
-        outputs = [out_file],
-        inputs = input_files,
-        executable = stardoc,
-        arguments = [args],
-        mnemonic = "Stardoc",
-        progress_message = ("Generating Starlark doc for %s" %
-                            (ctx.label.name)),
-    )
-
+    
+    if ctx.attr.format == "proto":
+        args.add("--output=" + ctx.outputs.out.path)
+        ctx.actions.run(
+            outputs = [out_file],
+            inputs = input_files,
+            executable = stardoc,
+            arguments = [args],
+            mnemonic = "Stardoc",
+            progress_message = ("Generating Starlark doc for %s" %
+                                (ctx.label.name)),
+        )
+    elif ctx.attr.format == "markdown":
+        proto_file = ctx.actions.declare_file(ctx.label.name + ".raw", sibling = out_file)
+        args.add("--output=" + proto_file.path)
+        ctx.actions.run(
+            outputs = [proto_file],
+            inputs = input_files,
+            executable = stardoc,
+            arguments = [args],
+            mnemonic = "Stardoc",
+            progress_message = ("Generating proto for Starlark doc for %s" %
+                                (ctx.label.name)),
+        )
+        renderer_args = ctx.actions.args()
+        renderer_args.add("--input=" + str(proto_file.path))
+        renderer_args.add("--output=" + ctx.outputs.out.path)
+        renderer = ctx.executable.renderer
+        ctx.actions.run(
+            outputs = [out_file],
+            inputs = [proto_file],
+            executable = renderer,
+            arguments = [renderer_args],
+            mnemonic = "Renderer",
+            progress_message = ("Converting proto format of %s to markdown format" %
+                                (ctx.label.name)),
+        )
+        
 stardoc = rule(
     _stardoc_impl,
     doc = """
@@ -115,6 +142,13 @@ non-default semantic flags required to use the given Starlark symbols.
             doc = "The location of the stardoc tool.",
             allow_files = True,
             default = Label("//stardoc:stardoc"),
+            cfg = "host",
+            executable = True,
+        ),
+        "renderer": attr.label(
+            doc = "The location of the renderer tool.",
+            allow_files = True,
+            default = Label("//renderer:renderer"),
             cfg = "host",
             executable = True,
         ),
