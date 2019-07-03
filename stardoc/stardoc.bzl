@@ -142,13 +142,13 @@ non-default semantic flags required to use the given Starlark symbols.
             doc = "The location of the stardoc tool.",
             allow_files = True,
             default = Label("//stardoc:stardoc"),
-            cfg = "host",
+            cfg = "host",/goo
             executable = True,
         ),
         "renderer": attr.label(
             doc = "The location of the renderer tool.",
             allow_files = True,
-            default = Label("//renderer:renderer"),
+            default = Label("//stardoc:renderer"),
             cfg = "host",
             executable = True,
         ),
