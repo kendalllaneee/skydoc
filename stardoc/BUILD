@@ -65,7 +65,7 @@ java_binary(
         "--add-opens=java.base/java.nio=ALL-UNNAMED",
         "--add-opens=java.base/java.lang=ALL-UNNAMED",
     ],
-    main_class = "com.google.devtools.build.skydoc.renderer.RenderMain",
+    main_class = "com.google.devtools.build.skydoc.renderer.RendererMain",
     runtime_deps = [
         ":prebuilt_renderer_binary",
     ],
