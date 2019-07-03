@@ -67,6 +67,15 @@ This rule is an experimental replacement for the existing skylark_doc rule.
         </p>
       </td>
     </tr>
+    <tr id="stardoc-renderer">
+      <td><code>renderer</code></td>
+      <td>
+        <a href="https://bazel.build/docs/build-ref.html#labels">Label</a>; optional
+        <p>
+          The location of the renderer tool.
+        </p>
+      </td>
+    </tr>
     <tr id="stardoc-semantic_flags">
       <td><code>semantic_flags</code></td>
       <td>
