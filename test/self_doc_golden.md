@@ -113,7 +113,6 @@ documentation for all exported rule definitions will be generated.
   </tbody>
 </table>
 
-
 <a name="#_stardoc_impl"></a>
 
 ## _stardoc_impl
@@ -140,5 +139,3 @@ Implementation of the stardoc rule.
     </tr>
   </tbody>
 </table>
-
-
