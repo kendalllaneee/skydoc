@@ -82,7 +82,7 @@ def _stardoc_impl(ctx):
         )
         renderer_args = ctx.actions.args()
         renderer_args.add("--input=" + str(proto_file.path))
-        renderer_args.add("--output=" + ctx.outputs.out.path)
+        renderer_args.add("--output=" + str(ctx.outputs.out.path))
         renderer = ctx.executable.renderer
         ctx.actions.run(
             outputs = [out_file],
