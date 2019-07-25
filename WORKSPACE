@@ -58,7 +58,7 @@ http_archive(
     ],
 )
 
-# Tools for building deb, rpm and tar files.
+# Needed as a transitive dependency of @io_bazel
 http_archive(
     name = "rules_pkg",
     sha256 = "5bdc04987af79bd27bc5b00fe30f59a858f77ffa0bd2d8143d5b31ad8b1bd71c",
