@@ -156,8 +156,13 @@ non-default semantic flags required to use the given Starlark symbols.
             cfg = "host",
             executable = True,
         ),
+        "aspect_template": attr.label(
+            doc = "The input file template for aspects generated in documentation.",
+            allow_single_file = [".vm"],
+            default = Label("//stardoc:templates/aspect.vm"),
+        ),
         "header_template": attr.label(
-            doc = "The input file template for header generated in documentation.",
+            doc = "The input file template for a header generated in documentation.",
             allow_single_file = [".vm"],
             default = Label("//stardoc:templates/header.vm"),
         ),
