@@ -58,8 +58,6 @@ http_archive(
     ],
 )
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 # Tools for building deb, rpm and tar files.
 http_archive(
     name = "rules_pkg",
