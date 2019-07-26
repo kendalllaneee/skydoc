@@ -83,6 +83,7 @@ def _stardoc_impl(ctx):
         renderer_args = ctx.actions.args()
         renderer_args.add("--input=" + str(proto_file.path))
         renderer_args.add("--output=" + str(ctx.outputs.out.path))
+        renderer_args.add("--header_template=" + str(ctx.file.aspect_template.path))
         renderer_args.add("--header_template=" + str(ctx.file.header_template.path))
         renderer_args.add("--func_template=" + str(ctx.file.func_template.path))
         renderer_args.add("--provider_template=" + str(ctx.file.provider_template.path))
@@ -90,7 +91,7 @@ def _stardoc_impl(ctx):
         renderer = ctx.executable.renderer
         ctx.actions.run(
             outputs = [out_file],
-            inputs = [proto_file, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
+            inputs = [proto_file, ctx.file.aspect_template.path, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
             executable = renderer,
             arguments = [renderer_args],
             mnemonic = "Renderer",
