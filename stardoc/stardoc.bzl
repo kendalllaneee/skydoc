@@ -91,7 +91,7 @@ def _stardoc_impl(ctx):
         renderer = ctx.executable.renderer
         ctx.actions.run(
             outputs = [out_file],
-            inputs = [proto_file, ctx.file.aspect_template.path, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
+            inputs = [proto_file, ctx.file.aspect_template, ctx.file.header_template, ctx.file.func_template, ctx.file.provider_template, ctx.file.rule_template],
             executable = renderer,
             arguments = [renderer_args],
             mnemonic = "Renderer",
