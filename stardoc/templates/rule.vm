@@ -22,9 +22,9 @@ ${util.htmlEscape($ruleInfo.docString)}
       <td><code>${attribute.name}</code></td>
       <td>
         ${util.attributeTypeString($attribute)}; ${util.mandatoryString($attribute)}
-#if (!$attribute.docString.isEmpty())
+#if (!$attribute.getProviderNameList().isEmpty())
         <p>
-          ${attribute.docString.trim()}
+          The dependencies of this attribute must provide: ${util.attributeProviders($attribute)}
         </p>
 #end
       </td>
