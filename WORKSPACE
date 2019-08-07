@@ -33,19 +33,18 @@ git_repository(
 # Needed for generating the Stardoc release binary.
 git_repository(
     name = "io_bazel",
-    commit = "c5c078cb60b2d11c8c17f993d9b10582ee984d5f",  # Jul 31, 2019
+    commit = "858412781d76b7d27c39dc58b7f24cf645bdf035",  # Aug 7, 2019
     remote = "https://github.com/bazelbuild/bazel.git",
 )
 
-http_archive(
-    name = "rules_java",
-    sha256 = "bc81f1ba47ef5cc68ad32225c3d0e70b8c6f6077663835438da8d5733f917598",
-    strip_prefix = "rules_java-7cf3cefd652008d0a64a419c34c13bdca6c8f178",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_java/archive/7cf3cefd652008d0a64a419c34c13bdca6c8f178.zip",
-        "https://github.com/bazelbuild/rules_java/archive/7cf3cefd652008d0a64a419c34c13bdca6c8f178.zip",
-    ],
+git_repository(
+    name = "rules_python",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+    commit = "4b84ad270387a7c439ebdccfd530e2339601ef27",
 )
+
+load("@rules_python//python:repositories.bzl", "py_repositories")
+py_repositories()
 
 # Needed only because of java_tools.
 http_archive(
