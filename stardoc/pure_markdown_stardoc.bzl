@@ -28,9 +28,9 @@ def pure_markdown_stardoc(name, **kwargs):
     stardoc(
         name = name,
         format = "markdown",
-        aspect_template = Label(":pure_markdown_templates/aspect.vm"),
-        func_template = Label(":pure_markdown_templates/func.vm"),
-        provider_template = Label(":pure_markdown_templates/provider.vm"),
-        rule_template = Label(":pure_markdown_templates/rule.vm"),
+        aspect_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/aspect.vm"),
+        func_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/func.vm"),
+        provider_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/provider.vm"),
+        rule_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/rule.vm"),
         **kwargs
     )
