@@ -1,0 +1,38 @@
+# Copyright 2019 The Bazel Authors. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Macro for Pure Markdown Stardoc Output Format"""
+
+load("//third_party/py/skydoc/stardoc:stardoc.bzl", "stardoc")
+
+def pure_markdown_stardoc(name, **kwargs):
+    """Outputs documentation using default pure markdown templates.
+
+    Args:
+      name: A unique name for this target.
+      **kwargs: Attributes to be passed along to the stardoc() rule. (May not include the attributes
+          for the stardoc and renderer binaries, format, or templates.)
+    """
+
+    stardoc(
+        name = name,
+        renderer = Label("//third_party/bazel/src/main/java/com/google/devtools/build/skydoc/renderer:renderer"),
+        stardoc = Label("//third_party/bazel/src/main/java/com/google/devtools/build/skydoc:skydoc"),
+        format = "markdown",
+        aspect_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/aspect.vm"),
+        func_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/func.vm"),
+        provider_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/provider.vm"),
+        rule_template = Label("//third_party/py/skydoc/stardoc:pure_markdown_templates/rule.vm"),
+        **kwargs
+    )
