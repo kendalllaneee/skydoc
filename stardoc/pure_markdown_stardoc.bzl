@@ -14,7 +14,7 @@
 
 """Macro for Pure Markdown Stardoc Output Format"""
 
-load("//third_party/py/skydoc/stardoc:stardoc.bzl", "stardoc")
+load(":stardoc.bzl", "stardoc")
 
 def pure_markdown_stardoc(name, **kwargs):
     """Outputs documentation using default pure markdown templates.
